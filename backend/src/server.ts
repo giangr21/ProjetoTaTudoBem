@@ -1,5 +1,6 @@
 import app from './app';
 import { formatMessage } from './utils/messages';
+import { userJoin, getCurrentUser, userLeave, getRoomUsers } from './utils/users';
 
 interface IJoinRoom {
   username: string;
@@ -18,7 +19,6 @@ const botName = 'ChatBot';
 
 io.on('connection', (socket) => {
   socket.on('joinRoom', ({ username, room }: IJoinRoom) => {
-    console.log(username, room);
     const user = userJoin(socket.id, username, room)
 
     socket.join(user.room)
@@ -28,16 +28,33 @@ io.on('connection', (socket) => {
 
     // BROADCAST WHEN A USER CONNECTS
     socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${user.username} has joined the chat`))
+
+    // SEND USERS AND ROOM INFO
+    io.to(user.room).emit('roomUsers', {
+      room: user.room,
+      users: getRoomUsers(user.room)
+    })
   })
 
 
   //RUNS WHEN CLIENT DISCONNECTS
   socket.on('disconnect', () => {
-    io.emit('message',formatMessage(botName, 'A user has left the chat'))
+    const user = userLeave(socket.id);
+    if (user) {
+      io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`))
+
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      })
+    }
   })
 
   //LISTEN FOR CHAT MESSAGE
-  socket.on('chatMessage', (msg) => {
-    io.emit('message', formatMessage('USER', msg));
+  socket.on('chatMessage', (msg: string) => {
+    const user = getCurrentUser(socket.id)
+    if (user) {
+      io.to(user.room).emit('message', formatMessage(user.username, msg));
+    }
   })
 })
