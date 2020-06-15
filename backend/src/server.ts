@@ -20,7 +20,6 @@ const botName = 'ChatBot';
 io.on('connection', (socket) => {
   socket.on('joinRoom', ({ username, room }: IJoinRoom) => {
     const user = userJoin(socket.id, username, room)
-
     socket.join(user.room)
 
     // WELCOME CURRENT USER
@@ -31,7 +30,7 @@ io.on('connection', (socket) => {
 
     // SEND USERS AND ROOM INFO
     io.to(user.room).emit('roomUsers', {
-      room: user.room,
+      r: user.room,
       users: getRoomUsers(user.room)
     })
   })
@@ -44,7 +43,7 @@ io.on('connection', (socket) => {
       io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat`))
 
       io.to(user.room).emit('roomUsers', {
-        room: user.room,
+        r: user.room,
         users: getRoomUsers(user.room)
       })
     }

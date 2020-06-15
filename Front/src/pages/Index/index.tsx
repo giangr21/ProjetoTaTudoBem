@@ -1,12 +1,12 @@
 import React, { useRef, useCallback } from 'react';
-import { Container, Content } from './styles'
 import { Form } from '@unform/web';
-import Input from '../../components/Input'
-import Button from '../../components/Button'
-import { FiUser, FiLogIn } from 'react-icons/fi';
+import { FiUser, FiLogIn, FiLock } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
-import api from '../../services/api';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import { Container, Content } from './styles';
+import { useAuth } from '../../hooks/Auth';
 
 interface SignUpFormData {
   email: string;
@@ -15,25 +15,23 @@ interface SignUpFormData {
 
 const Index: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { signIn } = useAuth();
   const history = useHistory();
 
   const handleSubmit = useCallback(
-    async ({email, senha}: SignUpFormData) => {
+    async ({ email, senha }: SignUpFormData) => {
       try {
-        const response = await api.post('sessions', {
+        await signIn({
           email,
-          senha
+          senha,
         });
-        const { token, user } = response.data;
-        console.log(token, user);
-        history.push('/chat');
-
+        history.push('/dashboard');
       } catch (err) {
+        console.log(err);
       }
     },
-    [history],
+    [history, signIn],
   );
-
 
   return (
     <Container>
@@ -41,33 +39,33 @@ const Index: React.FC = () => {
         <Form ref={formRef} onSubmit={handleSubmit}>
           <h1 style={{ marginBottom: 30 }}>Login</h1>
           <Input
+            required
             name="email"
             icon={FiUser}
             type="email"
             placeholder="exemplo@email.com"
           />
           <Input
+            required
             name="senha"
-            icon={FiUser}
+            icon={FiLock}
             type="password"
             placeholder="*************"
           />
 
-          <Button type="submit">
-            Acessar
-				</Button>
+          <Button type="submit">Acessar</Button>
         </Form>
         <Link to="/signup-user">
           <FiLogIn />
-            Criar Conta Usuario
-          </Link>
+          Criar Conta Usuario
+        </Link>
         <Link to="/signup-volun">
           <FiLogIn />
-            Criar Conta Voluntario
-          </Link>
+          Criar Conta Voluntario
+        </Link>
       </Content>
     </Container>
-  )
+  );
 };
 
 export default Index;

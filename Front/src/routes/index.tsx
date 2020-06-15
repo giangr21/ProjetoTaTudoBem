@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import Route from './Route';
 
 import Index from '../pages/Index';
 import SignUpUser from '../pages/SignUpUser';
@@ -12,8 +13,8 @@ const Routes: React.FC = () => (
     <Route path="/" exact component={Index} />
     <Route path="/signup-user" component={SignUpUser} />
     <Route path="/signup-volun" component={SignUpVolun} />
-    <Route path="/dashboard" component={Dashboard} />
-    <Route path="/chat" component={Chat} />
+    <Route path="/dashboard" component={Dashboard} isPrivate />
+    <Route path="/chat" component={Chat} isPrivate />
   </Switch>
 );
 

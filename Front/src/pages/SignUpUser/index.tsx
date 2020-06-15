@@ -23,7 +23,6 @@ const SignUp: React.FC = () => {
       try {
         await api.post('usuarios', data);
         history.push('/');
-
       } catch (err) {
         console.log(err);
       }
@@ -52,7 +51,7 @@ const SignUp: React.FC = () => {
 
         <Link to="/">
           <FiArrowLeft />
-                Voltar para login
+          Voltar para login
         </Link>
       </Content>
     </Container>

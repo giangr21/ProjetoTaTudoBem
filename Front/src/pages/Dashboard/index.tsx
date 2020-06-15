@@ -1,64 +1,53 @@
-import React, { useCallback, useRef } from 'react'
-import './style.css'
+import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { useHistory } from 'react-router-dom';
+import { FiUser } from 'react-icons/fi';
+import Input from '../../components/Input';
+import Select from '../../components/Select';
+import { Container, Content } from './styles';
 
 const Dashboard: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
+  const optionsSelect = [
+    { id: 'node', value: 'node', label: 'Node' },
+    { id: 'react', value: 'react', label: 'ReactJS' },
+  ];
+
   const handleSubmit = useCallback(
     async (data: any) => {
-      // try {
-      //   const response = await api.post('sessions', {
-      //     email,
-      //     senha
-      //   });
-      //   const { token, user } = response.data;
-      //   console.log(token, user);
-        console.log(history.location);
-        history.push('/chat?username=gian&room=javascript');
-
-      // } catch (err) {
-      // }
+      console.log(data);
+      history.push(`/chat?username=${data.username}&room=${data.room}`);
     },
     [history],
   );
 
   return (
-    <div className="join-container">
-			<header className="join-header">
-				<h1><i className="fas fa-smile"></i> ChatCord</h1>
-			</header>
-			<main className="join-main">
-				<Form ref={formRef} onSubmit={handleSubmit}>
-					<div className="form-control">
-						<label>Username</label>
-						<input
-							type="text"
-							name="username"
-							id="username"
-							placeholder="Enter username..."
-							required
-						/>
-					</div>
-					<div className="form-control">
-						<label >Room</label>
-						<select name="room" id="room">
-							<option value="JavaScript">JavaScript</option>
-							<option value="Python">Python</option>
-							<option value="PHP">PHP</option>
-							<option value="C#">C#</option>
-							<option value="Ruby">Ruby</option>
-							<option value="Java">Java</option>
-						</select>
-					</div>
-					<button type="submit" className="btn">Join Chat</button>
-				</Form>
-			</main>
-		</div>
+    <Container>
+      <Content>
+        <h1 style={{ marginBottom: 50 }}>Seja Bem Vindo</h1>
+        <Form ref={formRef} onSubmit={handleSubmit}>
+          <Input
+            className="t"
+            name="username"
+            icon={FiUser}
+            required
+            placeholder="Escolha um nome de usuario"
+          />
+          <Select
+            placeholder="Selecione uma sala"
+            name="room"
+            options={optionsSelect}
+          />
+          <button type="submit" className="btn">
+            Entrar no chat
+          </button>
+        </Form>
+      </Content>
+    </Container>
   );
-}
+};
 
 export default Dashboard;
