@@ -37,6 +37,13 @@ class VoluntarioService implements IPessoaRepository{
 
   public async create(voluntarioData: IRequest): Promise<Voluntario | undefined> {
     const voluntarioRepository = getRepository(Voluntario);
+
+    const v = this.findByEmail(voluntarioData.email);
+
+    if (v) {
+      throw new AppError('Email already in use');
+    }
+
     const voluntario = await voluntarioRepository.create(voluntarioData)
     await voluntarioRepository.save(voluntario);
     return voluntario;

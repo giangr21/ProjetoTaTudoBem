@@ -3,7 +3,7 @@ import api from '../services/api';
 
 interface User {
   id: string;
-  name: string;
+  nome: string;
   email: string;
 }
 
@@ -57,8 +57,8 @@ const AuthProvider: React.FC = ({ children }) => {
   const signOut = useCallback(() => {
     // deleta tudo
     // localStorage.clear();
-    localStorage.removeItem('@GoBarber:token');
-    localStorage.removeItem('@GoBarber:user');
+    localStorage.removeItem('@TTB:token');
+    localStorage.removeItem('@TTB:user');
 
     setData({} as AuthState);
   }, []);

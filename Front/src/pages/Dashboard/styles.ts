@@ -6,12 +6,41 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+
 `;
+
+export const Header = styled.div`
+  display: flex;
+  align-items: flex-end;
+
+  button {
+    padding: 20px;
+      margin-left: auto;
+      background: transparent;
+      border: 0;
+
+      svg {
+        color: #999591;
+        width: 20px;
+        height: 20px;
+      }
+    }
+`
 
 export const Content = styled.div`
   width: 100%;
-  max-width: 360px;
+  max-width: 500px;
   text-align: center;
+  /* display: flex; */
+
+  .flex {
+    display: flex;
+  }
+
+  .m5 {
+    margin: 5px 20px;
+  }
 
   button {
     background: #8bc6ec;

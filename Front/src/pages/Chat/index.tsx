@@ -5,7 +5,7 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { FiUser } from 'react-icons/fi';
 import io from 'socket.io-client';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
@@ -42,7 +42,6 @@ const Chat: React.FC = () => {
     socket?.emit('joinRoom', { username, room });
 
     socket?.on('roomUsers', (data: any) => {
-      console.log(data);
       setRoomName(data.r);
       setUsers(data.users);
     });
@@ -78,9 +77,9 @@ const Chat: React.FC = () => {
           <h1>
             <i className="fas fa-smile" /> ChatCord
           </h1>
-          <a href="index.html" className="btn">
+          <Link to="/" className="btn">
             Leave Room
-          </a>
+          </Link>
         </header>
         <main className="chat-main">
           <div className="chat-sidebar">

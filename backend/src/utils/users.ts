@@ -27,3 +27,4 @@ export function userLeave(id: string) {
 export function getRoomUsers(room: string) {
   return users.filter(user => user.room === room);
 }
+
