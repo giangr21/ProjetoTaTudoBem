@@ -17,7 +17,7 @@ export default class UsuarioController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { id,nome, email, senha } = request.body;
+    const { id, nome, email, senha } = request.body;
 
     const usuarioService = new UsuarioService();
 
@@ -40,6 +40,4 @@ export default class UsuarioController {
 
     return response.status(204).send();
   }
-
-
 }

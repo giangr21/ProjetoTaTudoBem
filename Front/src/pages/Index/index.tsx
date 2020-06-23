@@ -3,6 +3,7 @@ import { Form } from '@unform/web';
 import { FiUser, FiLogIn, FiLock } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
+import { toast } from 'react-toastify';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { Container, Content } from './styles';
@@ -26,7 +27,9 @@ const Index: React.FC = () => {
           senha,
         });
         history.push('/dashboard');
+        toast.success('Login realizado com sucesso!!');
       } catch (err) {
+        toast.error('Falha na autenticacao, confira usuario/senha');
         console.log(err);
       }
     },

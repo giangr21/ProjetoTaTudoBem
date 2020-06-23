@@ -33,40 +33,39 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-    <Header>
-    <button className="button" onClick={signOut} type="button">
-      <FiPower />
-    </button>
-
-    </Header>
-    <Container>
-      <Content>
-        <h1 style={{ marginBottom: 50 }}>Seja Bem Vindo {user.nome}</h1>
-        <div className="flex">
-          <Form className="m5" ref={formRef} onSubmit={handleSubmitChat}>
-            <Input
-              name="username"
-              icon={FiUser}
-              required
-              placeholder="Escolha um nome de usuario para o chat"
-            />
-            <Select
-              placeholder="Selecione uma sala"
-              name="room"
-              options={optionsSelect}
-            />
-            <button type="submit" className="btn">
-              Entrar no chat
-          </button>
-          </Form>
-          <Form className="m5" ref={formRef} onSubmit={handleSubmitVideo}>
-            <button type="submit" className="btn">
-              Entrar no webVideo
-          </button>
-          </Form>
-        </div>
-      </Content>
-    </Container>
+      <Header>
+        <button className="button" onClick={signOut} type="button">
+          <FiPower />
+        </button>
+      </Header>
+      <Container>
+        <Content>
+          <h1 style={{ marginBottom: 50 }}>Seja Bem Vindo {user.nome}</h1>
+          <div className="flex">
+            <Form className="m5" ref={formRef} onSubmit={handleSubmitChat}>
+              <Input
+                name="username"
+                icon={FiUser}
+                required
+                placeholder="Escolha um nome de usuario para o chat"
+              />
+              <Select
+                placeholder="Selecione uma sala"
+                name="room"
+                options={optionsSelect}
+              />
+              <button type="submit" className="btn">
+                Entrar no chat
+              </button>
+            </Form>
+            <Form className="m5" ref={formRef} onSubmit={handleSubmitVideo}>
+              <button type="submit" className="btn">
+                Entrar no webVideo
+              </button>
+            </Form>
+          </div>
+        </Content>
+      </Container>
     </>
   );
 };

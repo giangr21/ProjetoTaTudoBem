@@ -3,9 +3,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Peer from 'simple-peer';
 import io from 'socket.io-client';
-import { Container, Row, Video, Header } from './styles';
 import { FiPower } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
+import { Container, Row, Video, Header } from './styles';
 
 const WebVideo: React.FC = () => {
   const [yourID, setYourID] = useState('');
@@ -35,9 +35,9 @@ const WebVideo: React.FC = () => {
         }
       });
 
-    socket?.on("yourID", (id: string) => {
+    socket?.on('yourID', (id: string) => {
       setYourID(id);
-    })
+    });
 
     socket?.on('allUsers', (usrs: string) => {
       console.log(usrs);
@@ -50,7 +50,6 @@ const WebVideo: React.FC = () => {
       setCaller(data.from);
       setCallerSignal(data.signal);
     });
-
   }, [socket]);
 
   function callPeer(id: any) {
@@ -128,42 +127,43 @@ const WebVideo: React.FC = () => {
     incomingCall = (
       <div>
         <h1>{caller} está te ligando</h1>
-        <button onClick={acceptCall}>Deseja Aceitar ?</button>
+        <button type="button" onClick={acceptCall}>
+          Deseja Aceitar ?
+        </button>
       </div>
     );
   }
 
   function goBack() {
-    return history.push('/')
+    return history.push('/');
   }
 
   return (
     <>
-    <Header>
-    <button className="button" onClick={goBack} type="button">
-      <FiPower />
-    </button>
-
-    </Header>
-    <Container>
-      <Row>
-        {UserVideo}
-        {PartnerVideo}
-      </Row>
-      <Row>
-        {Object.keys(users).map(key => {
-          if (key === yourID) {
-            return null;
-          }
-          return (
-            <button onClick={() => callPeer(key)}>Call {key}</button>
-          );
-        })}
-      </Row>
-      {!callAccepted && (
-        <Row>{incomingCall}</Row>
-      )}
-    </Container>
+      <Header>
+        <button className="button" onClick={goBack} type="button">
+          <FiPower />
+        </button>
+      </Header>
+      <Container>
+        <Row>
+          {UserVideo}
+          {PartnerVideo}
+        </Row>
+        <Row>
+          {Object.keys(users).map((key) => {
+            if (key === yourID) {
+              return null;
+            }
+            return (
+              <button type="button" onClick={() => callPeer(key)}>
+                Call {key}
+              </button>
+            );
+          })}
+        </Row>
+        {!callAccepted && <Row>{incomingCall}</Row>}
+      </Container>
     </>
   );
 };

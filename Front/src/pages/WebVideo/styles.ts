@@ -40,14 +40,14 @@ export const Header = styled.div`
 
   button {
     padding: 20px;
-      margin-left: auto;
-      background: transparent;
-      border: 0;
+    margin-left: auto;
+    background: transparent;
+    border: 0;
 
-      svg {
-        color: #999591;
-        width: 20px;
-        height: 20px;
-      }
+    svg {
+      color: #999591;
+      width: 20px;
+      height: 20px;
     }
-`
+  }
+`;

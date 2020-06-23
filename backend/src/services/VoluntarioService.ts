@@ -19,15 +19,14 @@ interface IUpdateVoluntario {
   senha: string;
 }
 
-class VoluntarioService implements IPessoaRepository{
-
-  public async findById(id: string): Promise<Voluntario | undefined>{
+class VoluntarioService implements IPessoaRepository {
+  public async findById(id: string): Promise<Voluntario | undefined> {
     const voluntarioRepository = getRepository(Voluntario);
-    const voluntario = await voluntarioRepository.findOne({id});
+    const voluntario = await voluntarioRepository.findOne({ id });
     return voluntario;
   }
 
-  public async findByEmail(email: string): Promise<Voluntario | undefined>{
+  public async findByEmail(email: string): Promise<Voluntario | undefined> {
     const voluntarioRepository = getRepository(Voluntario);
     const voluntario = await voluntarioRepository.findOne({
       where: { email },
@@ -35,7 +34,9 @@ class VoluntarioService implements IPessoaRepository{
     return voluntario;
   }
 
-  public async create(voluntarioData: IRequest): Promise<Voluntario | undefined> {
+  public async create(
+    voluntarioData: IRequest,
+  ): Promise<Voluntario | undefined> {
     const voluntarioRepository = getRepository(Voluntario);
 
     const v = this.findByEmail(voluntarioData.email);
@@ -44,12 +45,14 @@ class VoluntarioService implements IPessoaRepository{
       throw new AppError('Email already in use');
     }
 
-    const voluntario = await voluntarioRepository.create(voluntarioData)
+    const voluntario = await voluntarioRepository.create(voluntarioData);
     await voluntarioRepository.save(voluntario);
     return voluntario;
   }
 
-  public async update(voluntarioData: IUpdateVoluntario): Promise<Voluntario | undefined> {
+  public async update(
+    voluntarioData: IUpdateVoluntario,
+  ): Promise<Voluntario | undefined> {
     const voluntarioRepository = getRepository(Voluntario);
     const voluntario = await voluntarioRepository.findOne(voluntarioData.id);
 
@@ -63,14 +66,14 @@ class VoluntarioService implements IPessoaRepository{
     voluntario.senha = voluntarioData.senha;
 
     if (voluntarioData.isAdmin) {
-      voluntario.isAdmin = voluntarioData.isAdmin
+      voluntario.isAdmin = voluntarioData.isAdmin;
     }
     return voluntarioRepository.save(voluntario);
   }
 
   public async delete(id: string): Promise<void> {
     const voluntarioRepository = getRepository(Voluntario);
-    const voluntario = await voluntarioRepository.findOne({id});
+    const voluntario = await voluntarioRepository.findOne({ id });
     if (!voluntario) {
       throw new AppError('Voluntario ID does not exist', 404);
     }

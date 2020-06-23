@@ -8,5 +8,4 @@ voluntariosRouter.post('/', voluntarioController.create);
 voluntariosRouter.put('/', voluntarioController.update);
 voluntariosRouter.delete('/:id', voluntarioController.delete);
 
-
 export default voluntariosRouter;

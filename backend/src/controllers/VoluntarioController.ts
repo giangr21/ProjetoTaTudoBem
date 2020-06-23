@@ -19,7 +19,7 @@ export default class VoluntarioController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { id,nome, email, senha, profissao, isAdmin } = request.body;
+    const { id, nome, email, senha, profissao, isAdmin } = request.body;
 
     const voluntarioService = new VoluntarioService();
 
@@ -29,7 +29,7 @@ export default class VoluntarioController {
       email,
       senha,
       isAdmin,
-      profissao
+      profissao,
     });
 
     return response.json(voluntario);
@@ -44,6 +44,4 @@ export default class VoluntarioController {
 
     return response.status(204).send();
   }
-
-
 }

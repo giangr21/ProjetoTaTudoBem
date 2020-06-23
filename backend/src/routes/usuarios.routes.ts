@@ -8,5 +8,4 @@ usuariosRouter.post('/', usuarioController.create);
 usuariosRouter.put('/', usuarioController.update);
 usuariosRouter.delete('/:id', usuarioController.delete);
 
-
 export default usuariosRouter;

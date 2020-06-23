@@ -4,7 +4,6 @@ import AppError from '../errors/AppError';
 import Usuario from '../models/Usuario';
 import UsuarioService from './UsuarioService';
 import VoluntarioService from './VoluntarioService';
-import Voluntario from '../models/Voluntario';
 
 interface IRequest {
   email: string;
